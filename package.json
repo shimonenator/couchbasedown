@@ -1,43 +1,32 @@
 {
-  "name": "abstract-leveldown",
-  "description": "An abstract prototype matching the LevelDOWN API",
-  "version": "2.0.1",
-  "contributors": [
-    "Rod Vagg <r@va.gg> (https://github.com/rvagg)",
-    "John Chesley <john@chesl.es> (https://github.com/chesles/)",
-    "Jake Verbaten <raynos2@gmail.com> (https://github.com/raynos)",
-    "Dominic Tarr <dominic.tarr@gmail.com> (https://github.com/dominictarr)",
-    "Max Ogden <max@maxogden.com> (https://github.com/maxogden)",
-    "Lars-Magnus Skog <lars.magnus.skog@gmail.com> (https://github.com/ralphtheninja)",
-    "David Björklund <david.bjorklund@gmail.com> (https://github.com/kesla)",
-    "Julian Gruber <julian@juliangruber.com> (https://github.com/juliangruber)",
-    "Paolo Fragomeni <paolo@async.ly> (https://github.com/hij1nx)",
-    "Anton Whalley <anton.whalley@nearform.com> (https://github.com/No9)",
-    "Matteo Collina <matteo.collina@gmail.com> (https://github.com/mcollina)",
-    "Pedro Teixeira <pedro.teixeira@gmail.com> (https://github.com/pgte)",
-    "James Halliday <mail@substack.net> (https://github.com/substack)"
-  ],
+  "name": "couchbase-leveldown",
+  "description": "A LevelDOWN API compatible Couchbase adapter",
+  "version": "0.0.1",
+  "author": {
+    "name": "Shimon Schwartz",
+    "email": "shimonenator@gmail.com",
+    "url": "https://github.com/shimonenator"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rvagg/node-abstract-leveldown.git"
+    "url": "git://github.com/shimonenator/couchbase-leveldown.git"
   },
-  "homepage": "https://github.com/rvagg/node-abstract-leveldown",
+  "homepage": "https://github.com/shimonenator/couchbase-leveldown",
+  "bugs": "https://github.com/shimonenator/couchbase-leveldown/issues",
   "keywords": [
-    "leveldb",
+    "couchbase",
     "leveldown",
     "levelup"
   ],
-  "main": "./abstract-leveldown.js",
+  "main": "index.js",
   "dependencies": {
-    "xtend": "~3.0.0"
+	  "abstract-leveldown": "~2.0.0",
+	  "couchbase": "~2.0.0"
   },
   "devDependencies": {
     "tap": "*",
     "sinon": "*",
     "rimraf": "*"
-  },
-  "browser": {
-    "rimraf": false
   },
   "scripts": {
     "test": "node ./test.js"
