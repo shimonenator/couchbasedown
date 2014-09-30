@@ -5,23 +5,69 @@ var AbstractLevelDOWN = require('abstract-leveldown').AbstractLevelDOWN,
 	couchbase = require('couchbase');
 
 function CouchbaseDOWN(location) {
-	if (!(this instanceof CouchbaseDOWN)) return new CouchbaseDOWN(location);
+	if (!(this instanceof CouchbaseDOWN)) {
+		return new CouchbaseDOWN(location);
+	}
 	
 	AbstractLevelDOWN.call(this, location);
-	
-	this._cluster = new couchbase.Cluster(location);
 }
 
+CouchbaseDOWN.prototype = Object.create(AbstractLevelDOWN.prototype, {
+	constructor: {
+		configurable: true,
+		enumerable: true,
+		value: CouchbaseDOWN,
+		writable: true
+	},
 
+	_open: function (options, callback) {
+		var that = this, manager;
 
+		this._cluster || this._cluster = new couchbase.Cluster(location);
 
+		if (options.createIfMissing || options.errorIfExists) {
+			if (!options.adminUser) {
+				throw new Error('Couchbase adminUser is not set');
+			}
 
+			if (!options.adminPass) {
+				throw new Error('Couchbase adminPass is not set');
+			}
+			
+			manager = this._cluster.manager(options.adminUser, options.adminPass);
 
+			manager.listBuckets(function (err, bucketInfo) {
+				var exists;
 
+				if (err) {
+					return callback(err);
+				}
 
+				// TODO
+				console.log(bucketInfo);
 
+				if (bucketInfo.indexOf(options.bucket) >= 0) {
+					if (options.errorIfExists) {
+						throw new Error('Bucket ' + options.bucket + ' already exists');
+					}
+				} else {
+					if (options.createIfMissing) {
+						manager.createBucket(options.bucket)
+					} else {
+						throw new Error('Bucket ' + options.bucket + ' doesn\'t exist');
+					}
+				}
 
-
+				that._bucket = that._cluster.openBucket(options.bucket || null, options.pass || null, callback);
+			});
+		} else {
+			this._bucket = that._cluster.openBucket(options.bucket || null, options.pass || null, callback);	
+		}
+	},
+	_close: function (callback) {
+		
+	}
+});
 
 
 
@@ -35,37 +81,6 @@ var xtend                = require('xtend')
   , AbstractIterator     = require('./abstract-iterator')
   , AbstractChainedBatch = require('./abstract-chained-batch');
 
-
-
-
-function AbstractLevelDOWN (location) {
-  if (!arguments.length || location === undefined)
-    throw new Error('constructor requires at least a location argument')
-
-  if (typeof location != 'string')
-    throw new Error('constructor requires a location string argument')
-
-  this.location = location
-}
-
-AbstractLevelDOWN.prototype.open = function (options, callback) {
-  if (typeof options == 'function')
-    callback = options
-
-  if (typeof callback != 'function')
-    throw new Error('open() requires a callback argument')
-
-  if (typeof options != 'object')
-    options = {}
-
-  options.createIfMissing = options.createIfMissing != false
-  options.errorIfExists = !!options.errorIfExists
-
-  if (typeof this._open == 'function')
-    return this._open(options, callback)
-
-  process.nextTick(callback)
-}
 
 AbstractLevelDOWN.prototype.close = function (callback) {
   if (typeof callback != 'function')
