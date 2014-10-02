@@ -1,5 +1,5 @@
 {
-  "name": "couchbase-leveldown",
+  "name": "couchbasedown",
   "description": "A LevelDOWN API compatible Couchbase adapter for LevelUP",
   "version": "0.0.1",
   "author": {
@@ -9,10 +9,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/shimonenator/couchbase-leveldown.git"
+    "url": "git://github.com/shimonenator/couchbasedown.git"
   },
-  "homepage": "https://github.com/shimonenator/couchbase-leveldown",
-  "bugs": "https://github.com/shimonenator/couchbase-leveldown/issues",
+  "homepage": "https://github.com/shimonenator/couchbasedown",
+  "bugs": "https://github.com/shimonenator/couchbasedown/issues",
   "keywords": [
     "couchbase",
     "leveldown",
