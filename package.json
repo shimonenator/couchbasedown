@@ -1,6 +1,6 @@
 {
   "name": "couchbase-leveldown",
-  "description": "A LevelDOWN API compatible Couchbase adapter",
+  "description": "A LevelDOWN API compatible Couchbase adapter for LevelUP",
   "version": "0.0.1",
   "author": {
     "name": "Shimon Schwartz",
