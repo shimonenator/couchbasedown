@@ -25,6 +25,7 @@ ToDo
 - CB CAS support
 - CB Lock support
 - LD Batch support
+- Pass custom Cluster instance
 
 Licence
 -------
